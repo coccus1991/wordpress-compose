@@ -1,0 +1,6 @@
+data/letsencrypt/*
+etc/letsencrypt/*
+var/log/letsencrypt/*
+!var/log/letsencrypt/.gitkeep
+!data/letsencrypt/.gitkeep
+!etc/letsencrypt/.gitkeep

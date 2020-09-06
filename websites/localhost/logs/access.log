@@ -1,0 +1,7 @@
+172.21.0.1 - - [05/Sep/2020:17:04:43 +0000] "GET / HTTP/1.1" 301 185 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36"
+172.21.0.1 - - [05/Sep/2020:17:04:43 +0000] "GET /robots.txt HTTP/1.1" 301 185 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36"
+172.22.0.1 - - [05/Sep/2020:17:05:50 +0000] "GET / HTTP/1.1" 200 17 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36"
+172.22.0.1 - - [05/Sep/2020:17:07:06 +0000] "GET / HTTP/1.1" 200 92219 "-" "curl/7.58.0"
+172.22.0.1 - - [05/Sep/2020:17:08:31 +0000] "GET /robots.txt HTTP/1.1" 404 200 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36 Edg/85.0.564.44"
+172.22.0.1 - - [05/Sep/2020:17:08:31 +0000] "GET / HTTP/1.1" 200 26323 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36 Edg/85.0.564.44"
+172.22.0.1 - - [05/Sep/2020:17:08:31 +0000] "GET /favicon.ico HTTP/1.1" 404 200 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36 Edg/85.0.564.44"

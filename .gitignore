@@ -1,0 +1,12 @@
+.idea
+
+#directory website
+websites/*
+!websites/localhost
+
+shared/*
+!shared/.gitkeep
+
+
+#file env
+.env

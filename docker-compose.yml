@@ -1,0 +1,84 @@
+version: '3'
+services:
+    mysql:
+     build: ./images/mysql 
+     container_name: mysql
+     restart: always
+     environment:
+          MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+     volumes:
+            - ./images/mysql/data:/var/lib/mysql
+            - ./images/mysql/config/my.cnf:/etc/mysql/my.cnf
+            - ./shared:/home/shared  
+     networks:
+        - main
+
+    nginx:
+     build: ./images/nginx
+     container_name: nginx
+     restart: always
+     depends_on:
+        - php
+     ports:
+        - 80:80
+        - 443:443
+     volumes:
+        - ./websites:/websites
+        - ./images/nginx/config/hosts:/etc/nginx/conf.d
+        - ./images/nginx/config/sites-enabled:/etc/nginx/sites-enabled 
+        - ./images/nginx/config/snippets/:/home/snippets/
+        - ./images/nginx/config/certbot/etc/letsencrypt:/etc/letsencrypt
+        - ./images/nginx/config/certbot/data/letsencrypt:/data/letsencrypt
+        - ./images/nginx/config/selfsigned:/home/selfsigned
+        - ./shared:/home/shared   
+     networks:
+        - main
+   
+    php:
+      build: ./images/php-fpm
+      container_name: php
+      restart: always
+      volumes:
+        - ./websites:/websites
+        - ./images/php-fpm/config/www.conf:/usr/local/etc/php-fpm.d/www.conf
+        - ./images/php-fpm/config/php.ini:/usr/local/etc/php/php.ini
+        - ./shared:/home/shared
+      networks:
+        - main
+
+
+    phpmyadmin:
+     image: phpmyadmin/phpmyadmin
+     container_name: phpmyadmin
+     ports:
+      - ${PHPMYADMIN_PORT}:80
+     links:
+      - mysql:db
+     networks:
+      - main      
+    
+    varnish:
+     build: ./images/varnish
+     container_name: varnish
+     restart: always
+     volumes:
+        - ./images/varnish/config:/etc/varnish
+        - ./shared:/home/shared   
+     networks:
+        - main
+
+#    ftp:
+#     build: ./images/ftp
+#     container_name: ftp
+#     restart: always
+#     environment:
+#      PUBLICHOST: ${FTP_PUBLIC_IP_BINDING}
+#     ports:
+#      - ${FTP_PORT}:21
+#      - "30000-30009:30000-30009"
+#     volumes:
+#      - ./shared:/home/shared
+#     networks:
+#        - main
+networks:
+   main:
