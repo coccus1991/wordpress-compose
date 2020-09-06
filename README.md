@@ -1,9 +1,13 @@
+## Description
+A little docker-compose boilerplate that allow to create a wordpress installation faster with little afford.
+
 ## Requirements
 Is mandatory have installed already:
 * docker
 * docker-compose
 * Have available the ports 80 and 443 on you machine (you can change it on the docker-compose).
-if you are running the project on a ubuntu server you can use the script scripts/install_docker_ubuntu.bash.
+
+If you are running the project on a ubuntu server and wanna simplify docker installation you can use the script scripts/install_docker_ubuntu.bash.
 
 ## Installation
 * Rename .env-example to .env and edit it.

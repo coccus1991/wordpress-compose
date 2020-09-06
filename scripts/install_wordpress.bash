@@ -101,7 +101,6 @@ function install_wordpress() {
   docker-compose exec mysql bash -c "mysql -u root -p${MYSQL_ROOT_PASSWORD} -e \"insert into wp_options (option_name, option_value) values ('varnish_caching_ttl', '604800');\" -D ${DB_NAME}"
 }
 
-exit 1
 ### Instructions
 if [ -z $HOSTNAME ]; then
   echo "Insert hostname without schema of your website (ex: www.yoursite.com)"
