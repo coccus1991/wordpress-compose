@@ -1,2 +1,4 @@
 hosts/*
 !hosts/default.conf
+selfsigned/*
+!selfsigned/.gitkeep

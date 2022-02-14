@@ -5,5 +5,6 @@ RUN apt-get install -y nginx-extras
 RUN apt-get install libcss-minifier-xs-perl libjavascript-minifier-xs-perl libhtml-packer-perl -y
 RUN apt-get install vim -y
 RUN apt-get install htop -y
+RUN apt-get install openssl
 RUN mkdir nginx_confs
 RUN mkdir mycertificates

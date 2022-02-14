@@ -63,6 +63,16 @@ function create_hostname() {
   docker-compose exec nginx bash -c "sed -i 's/{folder}/'$ALIAS'/g' /etc/nginx/conf.d/${ALIAS}.conf"
   docker-compose exec nginx bash -c "sed -i 's/{admin_path}/'$ADMIN_PATH'/g' /etc/nginx/conf.d/${ALIAS}.conf"
 
+  # Creation self-signed certificate
+  docker-compose exec nginx bash -c "openssl req -newkey rsa:4096 \
+                                                 -x509 \
+                                                 -sha256 \
+                                                 -days 3650 \
+                                                 -nodes \
+                                                 -out /home/selfsigned/nginx-selfsigned.crt \
+                                                 -keyout /home/selfsigned/nginx-selfsigned.key \
+                                                 -subj '/C=SI/ST=Ljubljana/L=Ljubljana/O=Security/OU=IT Department/CN=$HOSTNAME'"
+
   if ! docker-compose exec nginx bash -c "nginx -t"; then
     die "Nginx config error"
   fi
@@ -93,6 +103,7 @@ function install_wordpress() {
   docker-compose exec php bash -c "cd ${ALIAS}/httpdocs;wp option --allow-root  update permalink_structure '/%postname%'"
 
   #install and configure varnish purge plugin
+  docker-compose exec php bash -c "cd ${ALIAS}/httpdocs && wp --allow-root plugin install vcaching --activate"
   docker-compose exec mysql bash -c "mysql -u root -p${MYSQL_ROOT_PASSWORD} -e \"delete from wp_options where option_name LIKE 'varnish_%';\" -D ${DB_NAME}"
   docker-compose exec mysql bash -c "mysql -u root -p${MYSQL_ROOT_PASSWORD} -e \"insert into wp_options (option_name, option_value) values ('varnish_caching_enable', '1');\" -D ${DB_NAME}"
   docker-compose exec mysql bash -c "mysql -u root -p${MYSQL_ROOT_PASSWORD} -e \"insert into wp_options (option_name, option_value) values ('varnish_caching_ips', 'varnish');\" -D ${DB_NAME}"
