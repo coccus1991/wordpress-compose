@@ -19,8 +19,7 @@ All scripts are located within scripts/ folder.
 #### Wordpress install
 **Description:** With this script you can install a version of wordpress with varnish caching in one shot.
 
-**Usage:** `./scripts/install_wordpress.bash --HOSTNAME "yoursite.com" --ALIAS "yoursite" --ADMIN_PATH "admin" --ADMIN_USER "admin" --ADMIN_PASSWORD "password" --AD
-        MIN_EMAIL "youremail@email.com"`
+**Usage:** `./scripts/install_wordpress.bash --HOSTNAME "yoursite.com" --ALIAS "yoursite" --ADMIN_PATH "admin" --ADMIN_USER "admin" --ADMIN_PASSWORD "password" --ADMIN_EMAIL "youremail@email.com"`
 
 **Note:** Will be installed with a self signed ssl certificate. To get a valid ssl certificate from lets encrypt see the get_https script
         

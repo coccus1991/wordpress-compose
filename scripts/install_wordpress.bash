@@ -47,21 +47,21 @@ function die() {
 }
 
 function rollback() {
-  NGIX_CONFIG_PATH=images/nginx/config
-  rm -fr $NGIX_CONFIG_PATH/hosts/${ALIAS}.conf
+  NGINX_CONFIG_PATH=images/nginx/config
+  rm -fr $NGINX_CONFIG_PATH/hosts/${ALIAS}.conf
   rm -fr websites/${ALIAS}
 }
 
 function create_hostname() {
-  mkdir websites/${ALIAS}/{httpdocs,logs} -p
+  mkdir -p websites/${ALIAS}/{httpdocs,logs}
 
-  NGIX_CONFIG_PATH=images/nginx/config
+  NGINX_CONFIG_PATH=images/nginx/config
 
-  cp $NGIX_CONFIG_PATH/hosts_template/wordpress_varnish.conf $NGIX_CONFIG_PATH/hosts/${ALIAS}.conf
+  cp $NGINX_CONFIG_PATH/hosts_template/wordpress_varnish.conf $NGINX_CONFIG_PATH/hosts/${ALIAS}.conf
 
-  sed -i 's/{hostname}/'$HOSTNAME'/g' $NGIX_CONFIG_PATH/hosts/${ALIAS}.conf
-  sed -i 's/{folder}/'$ALIAS'/g' $NGIX_CONFIG_PATH/hosts/${ALIAS}.conf
-  sed -i 's/{admin_path}/'$ADMIN_PATH'/g' $NGIX_CONFIG_PATH/hosts/${ALIAS}.conf
+  docker-compose exec nginx bash -c "sed -i 's/{hostname}/'$HOSTNAME'/g' /etc/nginx/conf.d/${ALIAS}.conf"
+  docker-compose exec nginx bash -c "sed -i 's/{folder}/'$ALIAS'/g' /etc/nginx/conf.d/${ALIAS}.conf"
+  docker-compose exec nginx bash -c "sed -i 's/{admin_path}/'$ADMIN_PATH'/g' /etc/nginx/conf.d/${ALIAS}.conf"
 
   if ! docker-compose exec nginx bash -c "nginx -t"; then
     die "Nginx config error"
